@@ -1,2 +1,7 @@
 # AeA-TP03
-Applications et Algorithmes - TP 03 - Le jeu de la lettre qui saute
+Applications et Algorithmes - Le jeu de la lettre qui saute
+
+À rendre :
+	- sources
+	- doc
+	- README complet et explicite
