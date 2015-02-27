@@ -28,4 +28,18 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
     // Il faut que les mots aient la même taille
     else
       false
+
+  /**
+   * Construit le graphe selon la règle du jeu "la lettre qui saute"
+   */
+  def lettreQuiSaute: Unit = {
+  }
+
+  /**
+   * Donne une représentation du graphe
+   *
+   * @return représentation du graphe sous forme d'une chaine de caractères
+   */
+  override def toString: String = ""
+
 }
