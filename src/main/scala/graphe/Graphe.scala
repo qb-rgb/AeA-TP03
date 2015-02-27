@@ -18,4 +18,14 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
     this.listeSucc(mot2) = succMot2
   }
 
+  // Determine si deux mots diffèrent d'une lettre
+  private def diffUneLettre(mot1: String, mot2: String): Boolean =
+    if (mot1.length == mot2.length) {
+      // Compte le nombre de lettre différentes dans les deux mots
+      val diffLettersNb = (mot1 zip mot2) count (x => x._1 != x._2)
+      diffLettersNb == 1
+    }
+    // Il faut que les mots aient la même taille
+    else
+      false
 }
