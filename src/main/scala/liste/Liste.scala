@@ -40,6 +40,16 @@ trait Liste {
    * @return nouvelle liste avec l'élément ajouté en queue
    */
   def add(elem: Int): Liste
+
+  /**
+   * Renvoit le i-ème élément de la liste
+   *
+   * @param index
+   *          indice de l'élément à renvoyer
+   * @return i-ème élément de la liste
+   */
+  def get(index: Int): Int
+
   
 }
 
@@ -70,6 +80,11 @@ case object ListeVide extends Liste {
    */
   override def add(elem: Int): ListeEntiers =
     new ListeEntiers(elem)
+
+  /**
+   * @see Liste.liste#get
+   */
+  override def get(index: Int) = throw new Error("ListeVide.get")
 
 }
 
@@ -116,6 +131,17 @@ case class ListeEntiers(private val headConst: Int, private val tailConst: Liste
     else
       new ListeEntiers(this.head, this.tail.add(elem))
   }
+
+  /**
+   * @see liste.Liste#get
+   */
+  override def get(index: Int): Int =
+    if (index >= this.length)
+      throw new Error("ListeEntiers.get : index out of bounds")
+    else if (index == 0)
+      this.head
+    else
+      this.tail.get(index - 1)
 
 }
 
