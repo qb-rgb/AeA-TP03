@@ -47,6 +47,21 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
    *
    * @return représentation du graphe sous forme d'une chaine de caractères
    */
-  override def toString: String = ""
+  override def toString: String = {
+    def edgesToString(wordIndex: Int): String = {
+      val word = this.mots(wordIndex)
+      val succ = this.listeSucc(wordIndex)
+
+      val edges =
+        for (i <- 0 until succ.length)
+          yield word + " -> " + this.mots(succ.get(i))
+
+      edges mkString "\n"
+    }
+
+    val allEdges = for (i <- 0 until this.nb) yield edgesToString(i)
+
+    (allEdges filterNot (x => x.isEmpty)) mkString "\n----\n"
+  }
 
 }
