@@ -35,8 +35,12 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
   /**
    * Construit le graphe selon la règle du jeu "la lettre qui saute"
    */
-  def lettreQuiSaute: Unit = {
-  }
+  def lettreQuiSaute: Unit = for {
+    m1 <- 0 until this.nb
+    m2 <- 0 until this.nb
+    if (!(this.listeSucc(m1) contains m2))
+    if (this.diffUneLettre(this.mots(m1), this.mots(m2)))
+  } this.ajouterArete(m1, m2)
 
   /**
    * Donne une représentation du graphe
