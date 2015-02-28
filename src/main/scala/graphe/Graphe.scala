@@ -1,7 +1,10 @@
 class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
   
+  // Les deux tableaux passés à la construction doivent être de même taille
+  require(this.mots.length == this.listeSucc.length)
+
   // Nombre de mots
-  private val nb: Int = mots.length
+  private val nb: Int = this.mots.length
 
   /**
    * Ajoute une arête au graphe
