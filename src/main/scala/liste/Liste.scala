@@ -50,6 +50,14 @@ trait Liste {
    */
   def get(index: Int): Int
 
+  /**
+   * Determine si la liste contient un élément
+   *
+   * @param elem
+   *          élément dont on souhaite savoir s'il est dans la liste
+   * @return true si la liste contient l'élément, false sinon
+   */
+  def contains(elem: Int): Boolean
   
 }
 
@@ -85,6 +93,11 @@ case object ListeVide extends Liste {
    * @see Liste.liste#get
    */
   override def get(index: Int) = throw new Error("ListeVide.get")
+
+  /**
+   * @see Liste.liste#contains
+   */
+  override def contains(elem: Int) = false
 
 }
 
@@ -142,6 +155,15 @@ case class ListeEntiers(private val headConst: Int, private val tailConst: Liste
       this.head
     else
       this.tail.get(index - 1)
+
+  /**
+   * @see Liste.liste#contains
+   */
+  override def contains(elem: Int): Boolean =
+    if (this.head == elem)
+      true
+    else
+      this.tail contains elem
 
 }
 
