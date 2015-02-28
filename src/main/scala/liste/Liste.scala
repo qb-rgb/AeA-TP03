@@ -28,6 +28,11 @@ trait Liste {
   def isEmpty: Boolean
 
   /**
+   * Donne la taille de la liste
+   */
+  def length: Int
+
+  /**
    * Ajoute un élément en queue de liste
    *
    * @param elem
@@ -38,7 +43,7 @@ trait Liste {
   
 }
 
-object ListeVide extends Liste {
+case object ListeVide extends Liste {
 
   /**
    * @see liste.Liste#head
@@ -54,6 +59,11 @@ object ListeVide extends Liste {
    * @see liste.Liste#isEmpty
    */
   override def isEmpty: Boolean = true
+
+  /**
+   * @see liste.Liste#length
+   */
+  override def length: Int = 0
 
   /**
    * @see liste.Liste#add
@@ -89,6 +99,12 @@ case class ListeEntiers(private val headConst: Int, private val tailConst: Liste
    * @see liste.Liste#isEmpty
    */
   override def isEmpty: Boolean = false
+
+  /**
+   * @see liste.Liste#length
+   */
+  override def length: Int =
+    1 + this.tail.length
 
   /**
    * @see liste.Liste#add
