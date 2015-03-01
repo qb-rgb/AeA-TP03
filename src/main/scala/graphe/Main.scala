@@ -1,27 +1,41 @@
+/**
+ * Objet de tests pour la classe Graphe
+ *
+ * La classe Dicos est utilisée, il faut donc passer un entier compris entre
+ * 3 et 5 pour déterminer le dictionnaire utilisé à la construction du graphe
+ *
+ * @author Quentin Baert
+ */
 object Main {
 
   def main(args: Array[String]): Unit = {
-    val mots: Array[String] = Array(
-      "gag", "gai", "gaz", "gel", "gks", "gin",
-      "gnu", "glu", "gui", "guy", "gre", "gue",
-      "ace", "acm", "agi", "ait", "aie", "ail",
-      "air", "and", "alu", "ami", "arc", "are",
-      "art", "apr", "avr", "sur", "mat", "mur")
+    val dico = args(0).toInt
 
-    val nb: Int = mots.length
+    if ((3 to 5) contains dico) {
+      val mots: Array[String] = 
+        if (dico == 3)
+          Dicos.dico3.distinct
+        else if (dico == 4)
+          Dicos.dico4.distinct
+        else
+          Dicos.dico5.distinct
 
-    val succ: Array[Liste] = new Array[Liste](nb)
+      val nb: Int = mots.length
 
-    // Initialisation des listes de succésseurs
-    for (i <- 0 until nb) {
-      succ(i) = ListeVide
-    }
+      val succ: Array[Liste] = new Array[Liste](nb)
 
-    val graphe: Graphe = new Graphe(mots, succ)
+      // Initialisation des listes de succésseurs
+      for (i <- 0 until nb) {
+        succ(i) = ListeVide
+      }
 
-    graphe.lettreQuiSaute
+      val graphe: Graphe = new Graphe(mots, succ)
 
-    println(graphe.toString)
+      graphe.lettreQuiSaute
+
+      println(graphe.toString)
+    } else
+      println("ERREUR : Veuillez entrer un chiffre entre 3 et 5")
   }
 
 }
