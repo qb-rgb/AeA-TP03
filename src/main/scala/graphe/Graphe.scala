@@ -55,6 +55,32 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
     if (!(this.listeSucc(m1) contains m2))
     if (this.diffUneLettre(this.mots(m1), this.mots(m2)))
   } this.ajouterArete(m1, m2)
+  
+  private def dfsWithTab(mot: Int, tab: Array[Boolean]): Unit = {
+    tab(mot) = true
+    print(this.mots(mot) + "  ")
+
+    val succ = this.listeSucc(mot)
+
+    for (i <- 0 until succ.length) {
+      val m = succ.get(i) 
+      if (!tab(m))
+        dfsWithTab(m, tab)
+    }
+
+  }
+
+  def dfs(mot: Int): Unit = {
+    val tagged: Array[Boolean] = new Array(this.nb)
+
+    // Initialisation du tableau de booléens
+    for (i <- 0 until this.nb)
+      tagged(i) = false
+
+    
+    this.dfsWithTab(mot, tagged)
+  }
+
 
   /**
    * Donne une représentation du graphe
