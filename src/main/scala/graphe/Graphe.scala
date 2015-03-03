@@ -51,7 +51,7 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
   def lettreQuiSaute: Unit = for {
     m1 <- 0 until this.nb
     m2 <- 0 until this.nb
-    // L'arête n'est créee qui si elle n'existe pas
+    // L'arête n'est créee que si elle n'existe pas
     if (!(this.listeSucc(m1) contains m2))
     if (this.diffUneLettre(this.mots(m1), this.mots(m2)))
   } this.ajouterArete(m1, m2)
