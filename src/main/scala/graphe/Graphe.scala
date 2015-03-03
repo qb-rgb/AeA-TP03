@@ -91,6 +91,27 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
     else
       throw new Error("Graphe.dfs: mot " + mot + " introuvable")
 
+  def visit: Unit = {
+    def indexVisit(index: Int, mot: Int, tab: Array[Boolean]): Unit = {
+      print(index + ":  ")
+      this.dfsWithTab(mot, tab)
+      println()
+      if (tab exists (x => x == false)) {
+        val tabWithIndexes = tab.zipWithIndex
+        val m = (tabWithIndexes filter (x => x._1 == false)).head._2
+
+        indexVisit(index + 1, m, tab)
+      }
+    }
+
+    val tagged: Array[Boolean] = new Array(this.nb)
+
+    // Initialisation du tableau de booléens
+    for (i <- 0 until this.nb)
+      tagged(i) = false
+
+    indexVisit(0, 0, tagged)
+  }
 
   /**
    * Donne une représentation du graphe
