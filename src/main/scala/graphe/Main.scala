@@ -42,6 +42,10 @@ object Main {
       graphe.lettreQuiSaute
 
       println(graphe.toString)
+
+      println("\n===================\n")
+
+      graphe.visit
     } else
       println("ERREUR : Veuillez entrer un chiffre entre 2 et 5")
   }
