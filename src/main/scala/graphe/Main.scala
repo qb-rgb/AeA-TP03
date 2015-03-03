@@ -8,12 +8,21 @@
  */
 object Main {
 
+  private val dico3court: Array[String] = Array(
+    "gag", "gai", "gaz", "gel", "gks", "gin",
+    "gnu", "glu", "gui", "guy", "gre", "gue",
+    "ace", "acm", "agi", "ait", "aie", "ail",
+    "air", "and", "alu", "ami", "arc", "are",
+    "art", "apr", "avr", "sur", "mat", "mur")
+
   def main(args: Array[String]): Unit = {
     val dico = args(0).toInt
 
-    if ((3 to 5) contains dico) {
+    if ((2 to 5) contains dico) {
       val mots: Array[String] = 
-        if (dico == 3)
+        if (dico == 2)
+          this.dico3court
+        else if (dico == 3)
           Dicos.dico3.distinct
         else if (dico == 4)
           Dicos.dico4.distinct
@@ -25,9 +34,8 @@ object Main {
       val succ: Array[Liste] = new Array[Liste](nb)
 
       // Initialisation des listes de succésseurs
-      for (i <- 0 until nb) {
+      for (i <- 0 until nb)
         succ(i) = ListeVide
-      }
 
       val graphe: Graphe = new Graphe(mots, succ)
 
@@ -35,7 +43,7 @@ object Main {
 
       println(graphe.toString)
     } else
-      println("ERREUR : Veuillez entrer un chiffre entre 3 et 5")
+      println("ERREUR : Veuillez entrer un chiffre entre 2 et 5")
   }
 
 }
