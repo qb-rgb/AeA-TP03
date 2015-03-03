@@ -81,6 +81,16 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
     this.dfsWithTab(mot, tagged)
   }
 
+  def dfs(mot: String): Unit =
+    if (this.mots contains mot) {
+      val indexedWords = this.mots.zipWithIndex
+      val index = (indexedWords filter (x => x._1 == mot)).head._2
+
+      this.dfs(index)
+    }
+    else
+      throw new Error("Graphe.dfs: mot " + mot + " introuvable")
+
 
   /**
    * Donne une représentation du graphe
