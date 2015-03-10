@@ -12,7 +12,7 @@
  * @author Quentin Baert
  */
 class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
-  
+
   // Les deux tableaux passés à la construction doivent être de même taille
   require(this.mots.length == this.listeSucc.length)
 
@@ -55,7 +55,7 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
     if (!(this.listeSucc(m1) contains m2))
     if (this.diffUneLettre(this.mots(m1), this.mots(m2)))
   } this.ajouterArete(m1, m2)
-  
+
   private def dfsWithTab(mot: Int, tab: Array[Boolean]): Unit = {
     tab(mot) = true
     print(this.mots(mot) + "  ")
@@ -77,7 +77,6 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
     for (i <- 0 until this.nb)
       tagged(i) = false
 
-    
     this.dfsWithTab(mot, tagged)
   }
 
