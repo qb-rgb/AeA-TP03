@@ -41,11 +41,18 @@ object Main {
 
       graphe.lettreQuiSaute
 
+      println("\n===== Graphe =====\n")
       println(graphe.toString)
 
-      println("\n===================\n")
-
+      println("\n===== Composantes connexes du graphe =====\n")
       graphe.visit
+
+      if (dico == 4) {
+        println("\n===== Composante connexe des mots lion et peur =====\n")
+        graphe dfs "lion"
+        println()
+      }
+
     } else
       println("ERREUR : Veuillez entrer un chiffre entre 2 et 5")
   }
