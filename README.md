@@ -227,4 +227,4 @@ brie -> brin -> brun -> brut -> crut -> crue -> drue -> doue -> dose -> rose ->
 roue -> roux -> poux -> pouf -> pour -> peur
 ```
 
-__/!\\__ Le cas ou un chemin n'existe pas entre deux mots n'est pas traité __/!\\__
+__/!\\__ Le cas ou un chemin n'existe pas entre deux mots n'a pas été vérifié __/!\\__
