@@ -99,6 +99,17 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
     this.dfsWithTab(mot, tagged)
   }
 
+  // Donne l'indice d'un mot du graphe
+  private def wordToIndex(word: String): Int =
+    if (this.mots contains word) {
+      val indexedWords = this.mots.zipWithIndex
+      val index = (indexedWords filter (x => x._1 == word)).head._2
+
+      index
+    }
+    else
+      throw new Error("Graphe: mot " + word + " introuvable")
+
   /**
    * Exécute un parcours en profondeur d'abord sur le graphe à partir d'un mot.
    * Les mots traversés lors du parcours sont imprimés.
@@ -106,14 +117,7 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
    * @param mot mot à partir duquel faire le parcours en profondeur
    */
   def dfs(mot: String): Unit =
-    if (this.mots contains mot) {
-      val indexedWords = this.mots.zipWithIndex
-      val index = (indexedWords filter (x => x._1 == mot)).head._2
-
-      this.dfs(index)
-    }
-    else
-      throw new Error("Graphe.dfs: mot " + mot + " introuvable")
+    this.dfs(this.wordToIndex(mot))
 
   /**
    * Visite le graphe et affiche toutes ses composantes connexes
