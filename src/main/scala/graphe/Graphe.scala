@@ -19,6 +19,15 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
   // Nombre de mots
   private val nb: Int = this.mots.length
 
+  // Tableaux des peres : pere[i] donne l'indice du pere du mot d'indice i
+  private val pere: Array[Int] = {
+    val res = new Array[Int](this.nb)
+    for (i <- 0 until this.nb)
+      res(i) = -1
+
+    res
+  }
+
   /**
    * Ajoute une arête au graphe
    *
@@ -64,9 +73,12 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
     val succ = this.listeSucc(mot)
 
     for (i <- 0 until succ.length) {
-      val m = succ.get(i) 
-      if (!tab(m))
+      val m = succ.get(i)
+      if (!tab(m)) {
+        // Initialisation du père
+        this.pere(m) = mot
         dfsWithTab(m, tab)
+      }
     }
 
   }
