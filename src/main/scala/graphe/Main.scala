@@ -51,6 +51,9 @@ object Main {
         println("\n===== Composante connexe des mots lion et peur =====\n")
         graphe dfs "lion"
         println()
+        println("\n===== Chemin entre lion et peur =====\n")
+        graphe.chemin("lion", "peur")
+        println()
       }
 
     } else
