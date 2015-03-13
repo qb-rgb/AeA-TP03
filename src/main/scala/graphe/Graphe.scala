@@ -145,6 +145,28 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
   }
 
   /**
+   * Imprime le chemin du graphe entre deux mots
+   *
+   * @param from mot à partir duquel démarre le chemin
+   * @param to mot auquel termine le chemin
+   */
+  def chemin(from: String, to: String): Unit = {
+    def buildPath(current: Int, path: List[String]): List[String] = {
+      val currentWord = this.mots(current)
+      if (currentWord == from)
+        path
+      else
+        buildPath(this.pere(current), currentWord +: path)
+    }
+
+    val toIndex = this.wordToIndex(to)
+    val path = buildPath(toIndex, Nil)
+
+    print(from + " -> ")
+    println(path mkString " -> ")
+  }
+
+  /**
    * Donne une représentation du graphe
    *
    * @return représentation du graphe sous forme d'une chaine de caractères
