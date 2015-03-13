@@ -186,3 +186,45 @@ omet  emet  emut  emue  elue  elle  omis  emis  elis  emir  hetu
 vetu  velu  valu  velo  veto  tete  bete  bebe  beta  recu  zele
 feue  feve  fevr  seve  seme  meme  sema  sexe  sexy  neve
 ```
+
+## Exercice 3 : Calculs de chemins
+
+Chemin entre les mots _lion_ et _peur_.
+
+```
+lion -> pion -> paon -> pain -> vain -> vais -> mais -> hais -> haie -> hait ->
+haut -> vaut -> vaux -> veux -> veuf -> oeuf -> neuf -> nerf -> cerf -> serf ->
+sera -> aera -> aere -> here -> hele -> tele -> fele -> fela -> hela -> dela ->
+deja -> deca -> decu -> vecu -> veau -> venu -> tenu -> tetu -> fetu -> feru ->
+fera -> fora -> fort -> font -> foot -> flot -> flou -> clou -> clot -> ilot ->
+plot -> plut -> peut -> veut -> vent -> vend -> pend -> perd -> pere -> gere ->
+gene -> cene -> cane -> cade -> cage -> cake -> cafe -> came -> lame -> lama ->
+pama -> papa -> sapa -> saga -> sage -> sake -> sape -> pape -> page -> pane ->
+pale -> hale -> hase -> vase -> jase -> jade -> jude -> rude -> rode -> role ->
+mole -> mile -> mike -> mise -> miss -> mess -> mens -> cens -> cent -> sent ->
+sens -> sans -> sais -> jais -> jars -> gars -> pars -> paru -> parc -> pari ->
+sari -> sali -> soli -> joli -> poli -> polo -> solo -> silo -> kilo -> kilt ->
+tilt -> tint -> vint -> vont -> mont -> mort -> mord -> mors -> tors -> tort ->
+toit -> tout -> aout -> cout -> coit -> voit -> vois -> voir -> voix -> voie ->
+vote -> hote -> hate -> hata -> gata -> gala -> gale -> gate -> gite -> mite ->
+vite -> vice -> vise -> aise -> aire -> aine -> aile -> bile -> bale -> base ->
+buse -> bure -> dure -> dune -> hune -> aune -> aube -> cube -> cure -> mure ->
+mule -> male -> rale -> race -> rame -> pame -> pate -> rate -> rare -> mare ->
+tare -> taie -> trie -> tria -> trio -> brio -> bric -> eric -> cric -> crin ->
+coin -> foin -> loin -> loir -> soir -> soif -> soin -> sain -> sait -> lait ->
+laid -> caid -> raid -> rail -> bail -> bain -> gain -> nain -> nais -> nait ->
+nuit -> fuit -> frit -> fret -> pret -> pres -> ores -> tres -> gres -> gras ->
+gros -> gris -> fris -> cris -> cuis -> buis -> puis -> suis -> suif -> suit ->
+soit -> sont -> sort -> sert -> vert -> vers -> sers -> sors -> hors -> lors ->
+dors -> dois -> dais -> daim -> faim -> fais -> fait -> fart -> part -> port ->
+pont -> pond -> fond -> tond -> todd -> tord -> nord -> bord -> bond -> gond ->
+gong -> gang -> sang -> sana -> fana -> fane -> fame -> dame -> dome -> tome ->
+toge -> tige -> pige -> pire -> lire -> lice -> lise -> lese -> lest -> lent ->
+kent -> dent -> ment -> meat -> meut -> meus -> mous -> moue -> moud -> coud ->
+coup -> cour -> four -> tour -> tous -> toux -> houx -> houe -> boue -> bouc ->
+boul -> bous -> bois -> pois -> poix -> paix -> prix -> pris -> iris -> bris ->
+brie -> brin -> brun -> brut -> crut -> crue -> drue -> doue -> dose -> rose ->
+roue -> roux -> poux -> pouf -> pour -> peur
+```
+
+__/!\\__ Le cas ou un chemin n'existe pas entre deux mots n'est pas traité __/!\\__
