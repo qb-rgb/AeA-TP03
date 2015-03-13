@@ -65,10 +65,12 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
     if (this.diffUneLettre(this.mots(m1), this.mots(m2)))
   } this.ajouterArete(m1, m2)
 
-  // Exécute un parcours en profondeur d'abord sur le graphe à partir d'un mot
-  private def dfsWithTab(mot: Int, tab: Array[Boolean]): Unit = {
+  // Exécute un parcours en profondeur d'abord sur la graphe à partir d'un mot
+  private def dfsWithTab(mot: Int, tab: Array[Boolean], doPrint: Boolean): Unit = {
     tab(mot) = true
-    print(this.mots(mot) + "  ")
+
+    if (doPrint)
+      print(this.mots(mot) + "  ")
 
     val succ = this.listeSucc(mot)
 
@@ -77,10 +79,21 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
       if (!tab(m)) {
         // Initialisation du père
         this.pere(m) = mot
-        dfsWithTab(m, tab)
+        dfsWithTab(m, tab, doPrint)
       }
     }
 
+  }
+
+  // DFS générique
+  private def dfsGeneric(mot: Int, doPrint: Boolean) = {
+    val tagged: Array[Boolean] = new Array(this.nb)
+
+    // Initialisation du tableau de booléens
+    for (i <- 0 until this.nb)
+      tagged(i) = false
+
+    this.dfsWithTab(mot, tagged, doPrint)
   }
 
   /**
@@ -89,15 +102,16 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
    *
    * @param mot indice du mot à partir duquel faire le parcours en profondeur
    */
-  def dfs(mot: Int): Unit = {
-    val tagged: Array[Boolean] = new Array(this.nb)
+  def dfsPrint(mot: Int): Unit =
+    this.dfsGeneric(mot, true)
 
-    // Initialisation du tableau de booléens
-    for (i <- 0 until this.nb)
-      tagged(i) = false
-
-    this.dfsWithTab(mot, tagged)
-  }
+  /**
+   * Exécute un parcours en profondeur d'abord sur le graphe à partir d'un mot.
+   *
+   * @param mot indice du mot à partir duquel faire le parcours en profondeur
+   */
+  def dfs(mot: Int): Unit =
+    this.dfsGeneric(mot, false)
 
   // Donne l'indice d'un mot du graphe
   private def wordToIndex(word: String): Int =
@@ -116,6 +130,14 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
    *
    * @param mot mot à partir duquel faire le parcours en profondeur
    */
+  def dfsPrint(mot: String): Unit =
+    this.dfsPrint(this.wordToIndex(mot))
+
+  /**
+   * Exécute un parcours en profondeur d'abord sur le graphe à partir d'un mot.
+   *
+   * @param mot mot à partir duquel faire le parcours en profondeur
+   */
   def dfs(mot: String): Unit =
     this.dfs(this.wordToIndex(mot))
 
@@ -125,7 +147,7 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
   def visit: Unit = {
     def indexVisit(index: Int, mot: Int, tab: Array[Boolean]): Unit = {
       print(index + ":  ")
-      this.dfsWithTab(mot, tab)
+      this.dfsWithTab(mot, tab, true)
       println()
       if (tab exists (x => x == false)) {
         val tabWithIndexes = tab.zipWithIndex
