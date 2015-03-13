@@ -56,6 +56,7 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
     if (this.diffUneLettre(this.mots(m1), this.mots(m2)))
   } this.ajouterArete(m1, m2)
 
+  // Exécute un parcours en profondeur d'abord sur le graphe à partir d'un mot
   private def dfsWithTab(mot: Int, tab: Array[Boolean]): Unit = {
     tab(mot) = true
     print(this.mots(mot) + "  ")
@@ -70,6 +71,12 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
 
   }
 
+  /**
+   * Exécute un parcours en profondeur d'abord sur le graphe à partir d'un mot.
+   * Les mots traversés lors du parcours sont imprimés.
+   *
+   * @param mot indice du mot à partir duquel faire le parcours en profondeur
+   */
   def dfs(mot: Int): Unit = {
     val tagged: Array[Boolean] = new Array(this.nb)
 
@@ -80,6 +87,12 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
     this.dfsWithTab(mot, tagged)
   }
 
+  /**
+   * Exécute un parcours en profondeur d'abord sur le graphe à partir d'un mot.
+   * Les mots traversés lors du parcours sont imprimés.
+   *
+   * @param mot mot à partir duquel faire le parcours en profondeur
+   */
   def dfs(mot: String): Unit =
     if (this.mots contains mot) {
       val indexedWords = this.mots.zipWithIndex
@@ -90,6 +103,9 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
     else
       throw new Error("Graphe.dfs: mot " + mot + " introuvable")
 
+  /**
+   * Visite le graphe et affiche toutes ses composantes connexes
+   */
   def visit: Unit = {
     def indexVisit(index: Int, mot: Int, tab: Array[Boolean]): Unit = {
       print(index + ":  ")
