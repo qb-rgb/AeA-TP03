@@ -167,19 +167,33 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
   }
 
   /**
-   * Imprime le chemin du graphe entre deux mots
+   * Imprime le chemin du graphe entre deux mots en utilisant un DFS
    *
    * @param from mot à partir duquel démarre le chemin
    * @param to mot auquel termine le chemin
    */
-  def chemin(from: String, to: String): Unit = {
+  def cheminDfs(from: String, to: String): Unit = {
+    // Construit la liste de mot qui compose le chemin entre from et to
     def buildPath(current: Int, path: List[String]): List[String] = {
       val currentWord = this.mots(current)
       if (currentWord == from)
         path
-      else
-        buildPath(this.pere(current), currentWord +: path)
+      else {
+        val pere = this.pere(current)
+        if (pere != -1)
+          buildPath(pere, currentWord +: path)
+        else
+          throw new Error(
+            "Graphe.cheminDfs: chemin entre " + from + " et " + to + " inexistant"
+          )
+      }
     }
+
+    /*
+     * Un DFS est fait pour être certain que le tableau pere est correctement
+     * initialisé
+     */
+    this.dfs(from)
 
     val toIndex = this.wordToIndex(to)
     val path = buildPath(toIndex, Nil)
