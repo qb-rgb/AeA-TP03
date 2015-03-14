@@ -49,10 +49,10 @@ object Main {
 
       if (dico == 4) {
         println("\n===== Composante connexe des mots lion et peur =====\n")
-        graphe dfsPrint "lion"
+        graphe bfsPrint "lion"
         println()
         println("\n===== Chemin entre lion et peur =====\n")
-        graphe.cheminDfs("lion", "peur")
+        graphe.cheminBfs("lion", "peur")
         println()
       }
 
