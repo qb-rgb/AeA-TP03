@@ -1,3 +1,5 @@
+import scala.collection.mutable.Queue
+
 /**
  * Classe représentant un grapge initialisé selon la règle du jeu "la lettre
  * qui saute"
@@ -13,8 +15,16 @@
  */
 class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
 
+  /////////////////////////////////////////
+  // NÉCÉSSAIRE À LA CRÉATION DE L'OBJET //
+  /////////////////////////////////////////
+
   // Les deux tableaux passés à la construction doivent être de même taille
   require(this.mots.length == this.listeSucc.length)
+
+  ///////////////
+  // ATTRIBUTS //
+  ///////////////
 
   // Nombre de mots
   private val nb: Int = this.mots.length
@@ -27,6 +37,10 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
 
     res
   }
+
+  //////////////
+  // MÉTHODES //
+  //////////////
 
   /**
    * Ajoute une arête au graphe
@@ -65,6 +79,43 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
     if (this.diffUneLettre(this.mots(m1), this.mots(m2)))
   } this.ajouterArete(m1, m2)
 
+  // Donne l'indice d'un mot du graphe
+  private def wordToIndex(word: String): Int =
+    if (this.mots contains word) {
+      val indexedWords = this.mots.zipWithIndex
+      val index = (indexedWords filter (x => x._1 == word)).head._2
+
+      index
+    }
+    else
+      throw new Error("Graphe: mot " + word + " introuvable")
+
+  /**
+   * Donne une représentation du graphe
+   *
+   * @return représentation du graphe sous forme d'une chaine de caractères
+   */
+  override def toString: String = {
+    def edgesToString(wordIndex: Int): String = {
+      val word = this.mots(wordIndex)
+      val succ = this.listeSucc(wordIndex)
+
+      val edges =
+        for (i <- 0 until succ.length)
+          yield word + " -> " + this.mots(succ.get(i))
+
+      edges mkString "\n"
+    }
+
+    val allEdges = for (i <- 0 until this.nb) yield edgesToString(i)
+
+    (allEdges filterNot (x => x.isEmpty)) mkString "\n----\n"
+  }
+
+  ////////////////////////////////////
+  // PARCOURS EN PROFONDEUR D'ABORD //
+  ////////////////////////////////////
+
   // Exécute un parcours en profondeur d'abord sur la graphe à partir d'un mot
   private def dfsWithTab(mot: Int, tab: Array[Boolean], doPrint: Boolean): Unit = {
     tab(mot) = true
@@ -75,14 +126,14 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
     val succ = this.listeSucc(mot)
 
     for (i <- 0 until succ.length) {
-      val m = succ.get(i)
+      val m = succ get i
+
       if (!tab(m)) {
         // Initialisation du père
         this.pere(m) = mot
         dfsWithTab(m, tab, doPrint)
       }
     }
-
   }
 
   // DFS générique
@@ -98,31 +149,28 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
 
   /**
    * Exécute un parcours en profondeur d'abord sur le graphe à partir d'un mot.
-   * Les mots traversés lors du parcours sont imprimés.
-   *
-   * @param mot indice du mot à partir duquel faire le parcours en profondeur
-   */
-  def dfsPrint(mot: Int): Unit =
-    this.dfsGeneric(mot, true)
-
-  /**
-   * Exécute un parcours en profondeur d'abord sur le graphe à partir d'un mot.
    *
    * @param mot indice du mot à partir duquel faire le parcours en profondeur
    */
   def dfs(mot: Int): Unit =
     this.dfsGeneric(mot, false)
 
-  // Donne l'indice d'un mot du graphe
-  private def wordToIndex(word: String): Int =
-    if (this.mots contains word) {
-      val indexedWords = this.mots.zipWithIndex
-      val index = (indexedWords filter (x => x._1 == word)).head._2
+  /**
+   * Exécute un parcours en profondeur d'abord sur le graphe à partir d'un mot.
+   *
+   * @param mot mot à partir duquel faire le parcours en profondeur
+   */
+  def dfs(mot: String): Unit =
+    this.dfs(this.wordToIndex(mot))
 
-      index
-    }
-    else
-      throw new Error("Graphe: mot " + word + " introuvable")
+  /**
+   * Exécute un parcours en profondeur d'abord sur le graphe à partir d'un mot.
+   * Les mots traversés lors du parcours sont imprimés.
+   *
+   * @param mot indice du mot à partir duquel faire le parcours en profondeur
+   */
+  def dfsPrint(mot: Int): Unit =
+    this.dfsGeneric(mot, true)
 
   /**
    * Exécute un parcours en profondeur d'abord sur le graphe à partir d'un mot.
@@ -133,13 +181,82 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
   def dfsPrint(mot: String): Unit =
     this.dfsPrint(this.wordToIndex(mot))
 
+  /////////////////////////////////
+  // PARCOURS EN LARGEUR D'ABORD //
+  /////////////////////////////////
+
+  // Exécute un parcours en largeur d'abord sur la graphe à partir d'un mot
+  private def bfsWithTab(queue: Queue[Int], tab: Array[Boolean], doPrint: Boolean): Unit = {
+    if (!queue.isEmpty) {
+      val mot = queue.dequeue
+
+      if (!tab(mot)) {
+        tab(mot) = true
+
+        if (doPrint)
+          print(this.mots(mot) + "  ")
+
+        val succ = this.listeSucc(mot)
+
+        for (i <- 0 until succ.length) {
+          pere(i) = mot
+          queue += succ get i
+        }
+      }
+    }
+  }
+
+  // BFS générique
+  private def bfsGeneric(mot: Int, doPrint: Boolean) = {
+    val tagged: Array[Boolean] = new Array(this.nb)
+
+    // Initialisation du tableau de booléens
+    for (i <- 0 until this.nb)
+      tagged(i) = false
+
+    val queue: Queue[Int] = Queue()
+    queue += mot
+
+    this.bfsWithTab(queue, tagged, doPrint)
+  }
+
   /**
-   * Exécute un parcours en profondeur d'abord sur le graphe à partir d'un mot.
+   * Exécute un parcours en largeur d'abord sur le graphe à partir d'un mot.
    *
-   * @param mot mot à partir duquel faire le parcours en profondeur
+   * @param mot indice du mot à partir duquel faire le parcours en largeur
    */
-  def dfs(mot: String): Unit =
-    this.dfs(this.wordToIndex(mot))
+  def bfs(mot: Int): Unit =
+    this.bfsGeneric(mot, false)
+
+  /**
+   * Exécute un parcours en largeur d'abord sur le graphe à partir d'un mot.
+   * Les mots traversés lors du parcours sont imprimés.
+   *
+   * @param mot indice du mot à partir duquel faire le parcours en largeur
+   */
+  def bfsPrint(mot: Int): Unit =
+    this.bfsGeneric(mot, true)
+
+  /**
+   * Exécute un parcours en largeur d'abord sur le graphe à partir d'un mot.
+   *
+   * @param mot mot à partir duquel faire le parcours en largeur
+   */
+  def bfs(mot: String): Unit =
+    this.bfs(this.wordToIndex(mot))
+
+  /**
+   * Exécute un parcours en largeur d'abord sur le graphe à partir d'un mot.
+   * Les mots traversés lors du parcours sont imprimés.
+   *
+   * @param mot mot à partir duquel faire le parcours en largeur
+   */
+  def bfsPrint(mot: String): Unit =
+    this.bfsPrint(this.wordToIndex(mot))
+
+  //////////////////////
+  // VISITE DU GRAPHE //
+  //////////////////////
 
   /**
    * Visite le graphe et affiche toutes ses composantes connexes
@@ -165,6 +282,10 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
 
     indexVisit(0, 0, tagged)
   }
+
+  //////////////////////////////////////
+  // CHEMIN ENTRE DEUX MOTS DU GRAPHE //
+  //////////////////////////////////////
 
   /**
    * Imprime le chemin du graphe entre deux mots en utilisant un DFS
@@ -200,28 +321,6 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
 
     print(from + " -> ")
     println(path mkString " -> ")
-  }
-
-  /**
-   * Donne une représentation du graphe
-   *
-   * @return représentation du graphe sous forme d'une chaine de caractères
-   */
-  override def toString: String = {
-    def edgesToString(wordIndex: Int): String = {
-      val word = this.mots(wordIndex)
-      val succ = this.listeSucc(wordIndex)
-
-      val edges =
-        for (i <- 0 until succ.length)
-          yield word + " -> " + this.mots(succ.get(i))
-
-      edges mkString "\n"
-    }
-
-    val allEdges = for (i <- 0 until this.nb) yield edgesToString(i)
-
-    (allEdges filterNot (x => x.isEmpty)) mkString "\n----\n"
   }
 
 }
