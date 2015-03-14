@@ -292,13 +292,7 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
   // CHEMIN ENTRE DEUX MOTS DU GRAPHE //
   //////////////////////////////////////
 
-  /**
-   * Imprime le chemin du graphe entre deux mots en utilisant un DFS
-   *
-   * @param from mot à partir duquel démarre le chemin
-   * @param to mot auquel termine le chemin
-   */
-  def cheminDfs(from: String, to: String): Unit = {
+  def chemin(from: String, to: String, parcours: String => Unit): Unit = {
     // Construit la liste de mot qui compose le chemin entre from et to
     def buildPath(current: Int, path: List[String]): List[String] = {
       val currentWord = this.mots(current)
@@ -316,10 +310,10 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
     }
 
     /*
-     * Un DFS est fait pour être certain que le tableau pere est correctement
-     * initialisé
+     * Un parcours est fait pour être certain que le tableau pere est
+     * correctement initialisé
      */
-    this.dfs(from)
+    parcours(from)
 
     val toIndex = this.wordToIndex(to)
     val path = buildPath(toIndex, Nil)
@@ -327,5 +321,23 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
     print(from + " -> ")
     println(path mkString " -> ")
   }
+
+  /**
+   * Imprime le chemin du graphe entre deux mots en utilisant un DFS
+   *
+   * @param from mot à partir duquel démarre le chemin
+   * @param to mot auquel termine le chemin
+   */
+  def cheminDfs(from: String, to: String): Unit =
+    this.chemin(from, to, this.dfs)
+
+  /**
+   * Imprime le chemin du graphe entre deux mots en utilisant un DFS
+   *
+   * @param from mot à partir duquel démarre le chemin
+   * @param to mot auquel termine le chemin
+   */
+  def cheminBfs(from: String, to: String): Unit =
+    this.chemin(from, to, this.bfs)
 
 }
