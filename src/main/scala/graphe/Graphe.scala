@@ -199,10 +199,15 @@ class Graphe(val mots: Array[String], val listeSucc: Array[Liste]) {
         val succ = this.listeSucc(mot)
 
         for (i <- 0 until succ.length) {
-          pere(i) = mot
-          queue += succ get i
+          val m = succ get i
+          if (!tab(m)) {
+            this.pere(m) = mot
+            queue += m
+          }
         }
       }
+
+      bfsWithTab(queue, tab, doPrint)
     }
   }
 
