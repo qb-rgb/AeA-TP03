@@ -1,16 +1,14 @@
-# AeA-TP03
-Applications et Algorithmes - Le jeu de la lettre qui saute
+Quentin Baert  
 
-À rendre :  
-	- sources  
-	- doc  
-	- README complet et explicite  
+# AeA : Le jeu de la lettre qui saute
 
-===
+Exercice 1 : Modélisation et initialisation du jeu
+--------------------------------------------------
 
-## Exercice 1 : Modélisation et initialisation du jeu
+La classe `Liste` se trouve dans le dossier `src/main/scala/liste`.  
+La classe `Graphe` se trouve dans le dossier `src/main/scala/graphe`.
 
-Graphe correspondant au `dico3court` après initialisation.
+Voici le graphe correspondant au `dico3court` après initialisation de la liste de successeurs.
 
 ```
 ===== Graphe =====
@@ -101,9 +99,13 @@ sur -> mur
 mur -> sur
 ```
 
-## Exercice 2 : Calcul des composantes connexes
+Exercice 2 : Calcul des composantes connexes
+--------------------------------------------
 
-Composantes connexes du graphe de `dico3court`.
+Pour obtenir la composante connexe d'un mot du graphe, il suffit de lancer un parcours à partir de ce mot.  
+Pour les composantes suivantes, la méthode `Graphe.dfsPrint(m)` est utilisée : celle ci effectue un parcours en profondeur depuis le mot `m`.
+
+#### Composantes connexes du graphe de `dico3court`
 
 ```
 0:  gag  gai  gaz  gui  guy  gue  gre  are  ace  acm  aie  ait  ail  air  apr  avr  art  arc
@@ -117,10 +119,11 @@ Composantes connexes du graphe de `dico3court`.
 8:  mat
 ```
 
-Composante connexe des mots _lion_ et _peur_.
+#### Composante connexe des mots _lion_ et _peur_
 
 ```
 lion  lien  mien  miel  fiel  fier  fief  hier  huer  puer  ruer
+----
 tuer  muer  muet  guet  suer  suez  tuez  reer  beer  reel  lier
 lied  sied  sien  tien  bien  rien  riez  pied  pieu  lieu  dieu
 pneu  nier  fuel  duel  quel  full  pull  ciel  pion  paon  pain
@@ -170,6 +173,7 @@ dine  dina  dira  dura  mura  aura  lira  rira  rire  sire  site
 rite  rime  cime  dime  dire  rima  rama  rami  rata  rala  rixe
 dosa  dota  iota  dote  cote  coke  cone  conf  zone  zona  rose
 roue  roux  poux  pouf  pour  jour  joug  peur  heur  leur  doux
+                                          ----
 deux  ceux  yeux  bout  gout  mout  boit  doit  dont  donc  jonc
 dort  prit  noix  noir  poil  phil  pool  taux  baux  baud  maux
 faux  flux  faut  saut  saur  sauf  loup  menu  test  lyse  lyre
@@ -187,9 +191,14 @@ vetu  velu  valu  velo  veto  tete  bete  bebe  beta  recu  zele
 feue  feve  fevr  seve  seme  meme  sema  sexe  sexy  neve
 ```
 
-## Exercice 3 : Calculs de chemins
+Exercice 3 : Calculs de chemins
+-------------------------------
 
-Chemin entre les mots _lion_ et _peur_.
+Pour obtenir un chemin entre deux mot, un parcours est effectué à partir du premier mot, si le second mot est rencontré lors de ce parcours, alors il existe un chemin entre ces deux mots. Pour affichier le chemin, il faut mémoriser tous les mots rencontrés lors du parcours.
+
+Le chemin suivant a été obtenu grâce à la méthode `Graphe.cheminDfs(m1, m2)` qui effectue un parcours en profondeur d'abord et imprime le chemin entre les mots `m1` et `m2` s'il existe.
+
+#### Chemin entre les mots _lion_ et _peur_
 
 ```
 lion -> pion -> paon -> pain -> vain -> vais -> mais -> hais -> haie -> hait ->
@@ -227,4 +236,15 @@ brie -> brin -> brun -> brut -> crut -> crue -> drue -> doue -> dose -> rose ->
 roue -> roux -> poux -> pouf -> pour -> peur
 ```
 
-__/!\\__ Le cas ou un chemin n'existe pas entre deux mots n'a pas été vérifié __/!\\__
+## Exercice 4
+
+#### Chemin entre les mots _lion_ et _peur_
+
+Le chemin suivant a été obtenu grâce à la méthode `Graphe.cheminBfs(m1, m2)` qui effectue un parcours en largeur d'abord et imprime le chemin entre les mots `m1` et `m2` s'il existe.
+
+Le chemin obtenue entre deux mots à partir d'un parcours en largeur d'abord est aussi appelé __chemin le plus court__.
+
+```
+lion -> pion -> paon -> pain -> pair -> paix -> poix -> poux -> pouf -> pour ->
+peur
+```
