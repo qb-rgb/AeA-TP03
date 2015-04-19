@@ -236,7 +236,8 @@ brie -> brin -> brun -> brut -> crut -> crue -> drue -> doue -> dose -> rose ->
 roue -> roux -> poux -> pouf -> pour -> peur
 ```
 
-## Exercice 4
+Exercice 4 : Calcul de plus courts chemins
+------------------------------------------
 
 #### Chemin entre les mots _lion_ et _peur_
 
@@ -248,3 +249,13 @@ Le chemin obtenue entre deux mots à partir d'un parcours en largeur d'abord est
 lion -> pion -> paon -> pain -> pair -> paix -> poix -> poux -> pouf -> pour ->
 peur
 ```
+
+Main
+----
+
+Le main prend un entier et illustre les différents algorithmes sur les dictionnaires fournis avec la correspondance suivante :
+
+* 2 : dico3court
+* 3 : dico3
+* 4 : dico4
+* 5 : dico5
